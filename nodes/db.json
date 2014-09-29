@@ -3,6 +3,7 @@
 		"recipe[apt]",
 		"recipe[package_install]",
 		"recipe[db]",
-		"recipe[python_package]"
+		"recipe[python_package]",
+		"recipe[migrate]"
 	]
 }
