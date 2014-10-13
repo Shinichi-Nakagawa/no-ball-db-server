@@ -16,7 +16,7 @@ import json
 class LahmanCsv2Json(object):
 
     BASE_DIR = 'data'
-    FILENAME = 'lahman-csv_2014-02-14'
+    DIRECTORY = 'source'
     FILE_EXT = '.csv'
     OUTPUT_DIR = 'output'
     OUTPUT_EXT = '.json'
@@ -26,7 +26,7 @@ class LahmanCsv2Json(object):
     def __init__(self, base_path=''):
         # パスとか設定
         self.base_path = base_path
-        self.data_path = os.path.join(self.base_path, LahmanCsv2Json.FILENAME)
+        self.data_path = os.path.join(self.base_path, LahmanCsv2Json.DIRECTORY)
         self.data_files = os.listdir(self.data_path)
         self.output_path = os.path.join(self.base_path, LahmanCsv2Json.OUTPUT_DIR)
 
