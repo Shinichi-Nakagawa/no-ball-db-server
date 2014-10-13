@@ -9,6 +9,8 @@
 include_recipe "python"
 
 
-python_pip "sqlacodegen" do
-  action :install
+for lib in node['pip']['install'] do
+  python_pip lib do
+    action :install
+  end
 end
