@@ -32,4 +32,29 @@ Lahman’s Baseball DatabaseのCSVデータをMySQLから使えるようにし�
 ### 動画
 http://youtu.be/7NS1CwzlFS8?list=UUxNoKygeZIE1AwZ_NdUCkhQ
 
-##
+## Requirement
+
+このプロジェクトを適用する際は以下のアプリケーション・ライブラリが必要となります。
+
+プロジェクトをCloneする前にご準備願います。
+
+ * VirtualBox https://www.virtualbox.org/ 
+ * Vagrant https://www.vagrantup.com/
+ * Chef https://www.getchef.com/chef/
+ * knife-solo http://matschaffer.github.io/knife-solo/
+ * Berkshelf https://github.com/berkshelf/berkshelf
+
+### (参考)Mac OS Xでの導入手順
+
+#### VirtualBoxのインストール
+
+公式サイト(https://www.virtualbox.org/)よりインストーラをダウンロードし、実行してください。
+
+#### Vagrantのインストール
+
+公式サイト(https://www.vagrantup.com/)よりインストーラをダウンロードし、実行してください。
+#### Chef/knife-solo/Berkshelfのインストール
+
+いずれもruby gemsを用いてインストールしてください。詳細は以下のサイトが詳しいです。
+
+http://qiita.com/ikuwow/items/c604f4bff87275f89543
