@@ -1,7 +1,7 @@
 no-ball-db-server ~ のぼーる（野球）データベース・サーバー
 =================
 
-Lahman’s Baseball Database(http://www.seanlahman.com/baseball-archive/statistics/)をMySQLで使うプロジェクトです。
+Lahman’s Baseball Database( http://www.seanlahman.com/baseball-archive/statistics/ )をMySQLで使うプロジェクトです。
 
 ## Description
 
@@ -17,6 +17,12 @@ Lahman’s Baseball DatabaseのCSVデータをMySQLから使えるようにし�
 上記の役割を果たすコードが含まれています。
 
 メジャーリーグの選手やチームを分析・可視化する際に活用してもらえると幸いです。
+
+なお、当プロジェクトには__Lahman’s Baseball Databaseのデータ(CSV)は当プロジェクトに含まれていません。__
+
+データは以下のサイトより事前に取得してください。
+
+Lahman’s Baseball Database 2013 CSV Version　http://seanlahman.com/files/database/lahman-csv_2014-02-14.zip
 
 ## Demo
 
@@ -58,3 +64,68 @@ http://youtu.be/7NS1CwzlFS8?list=UUxNoKygeZIE1AwZ_NdUCkhQ
 いずれもruby gemsを用いてインストールしてください。詳細は以下のサイトが詳しいです。
 
 http://qiita.com/ikuwow/items/c604f4bff87275f89543
+
+## Usage
+
+サーバーを構築(後述のinstallを参照)後、MySQLにログインして使用します。
+
+ユーザーは以下のファイルをご参照ください。
+
+https://github.com/Shinichi-Nakagawa/no-ball-db-server/blob/master/site-cookbooks/migrate/attributes/default.rb
+
+## install
+
+使い方の解説です。利用環境(OS)は以下の要件を想定しています。
+
+ * Mac OS X 10.9(Mavericks)
+ * メモリ4GB以上を推奨 ※Serverイメージで2GB食います
+
+初回のServer立ち上げには時間を要します（おおよそ2時間程度）。
+
+仮置きで、クローンする先を以下のディレクトリとします。
+
+ * /Users/Billy_Beane/Documents/no-ball-db-server
+
+__"Billy_Beane"の部分をご自身の環境と置き換えて読んでください。__
+
+#### クローンする先のディレクトリに移動
+
+> cd /Users/Billy_Beane/Documents
+
+#### プロジェクトをcloneする
+
+> git clone git@github.com:Shinichi-Nakagawa/no-ball-db-server.git
+
+#### Lahman’s Baseball Databaseを取得&格納
+
+Lahman’s Baseball DatabaseのCSVデータ( http://seanlahman.com/files/database/lahman-csv_2014-02-14.zip )を以下のディレクトリに格納してください。
+
+> /Users/Billy_Beane/Documents/no-ball-db-server/site-cookbooks/sean_lahman/files/default/data
+
+#### クローンしたプロジェクトに移動
+
+> cd no-ball-db-server
+
+#### Ubuntu Serverを立ち上げる
+
+> vagrant up
+
+初回はServer Imageのダウンロードがあるため、結構時間が掛かります。
+
+#### ssh-configを出力
+
+"db"という名前で仮想イメージにsshログイン出来るよう、設定します
+
+> vagrant ssh-config --host db >> ~/.ssh/config
+
+#### recipeを適用
+
+knifeコマンドでrecipeを実行、野球データベースの作成を実施します
+
+> knife solo cook db
+
+以上で、メジャーリーグのDBが利用可能になります。
+
+## License
+
+MIT License http://opensource.org/licenses/MIT
