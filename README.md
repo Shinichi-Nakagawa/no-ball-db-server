@@ -7,6 +7,8 @@ Lahman’s Baseball Database( http://www.seanlahman.com/baseball-archive/statist
 
 Lahman’s Baseball DatabaseのCSVデータをMySQLから使えるようにしたプロジェクトです。
 
+プロジェクト自体はVagrantとChef solo(knife solo含む)で構成されています。
+
 このプロジェクトには、
 
  * VagrantでUbuntu Server(Ubuntu 14.04 LTS 64bit)を起動
@@ -65,7 +67,9 @@ http://youtu.be/7NS1CwzlFS8?list=UUxNoKygeZIE1AwZ_NdUCkhQ
 
 http://qiita.com/ikuwow/items/c604f4bff87275f89543
 
-#### knife-solo_data_bag
+#### knife-solo_data_bagのインストール
+
+> gem install knife-solo_data_bag
 
 ## Usage
 

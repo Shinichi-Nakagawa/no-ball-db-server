@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+database_config = Chef::EncryptedDataBagItem.load('database_config', 'default')
+
 # データとPythonスクリプトをコピー
 for dir in node['sean_lahman']['dirs'] 
   remote_directory "#{node['home']}/#{dir}" do
@@ -16,6 +18,21 @@ for dir in node['sean_lahman']['dirs']
   end
 end
 
+# database_config.pyを生成
+template "#{node['home']}/script/database_config.py" do
+  source 'database_config.py.erb'
+  owner "vagrant"
+  group "vagrant"
+  variables(
+    {
+      :user => database_config['users']['app']['name'],
+      :password => database_config['users']['app']['password'],
+      :host => database_config['host'],
+      :port => database_config['port'],
+      :database => database_config['name'],
+    }
+  )
+end
 
 # データ格納先Directoryを削除&作成
 directory node['sean_lahman']['directory'] do
