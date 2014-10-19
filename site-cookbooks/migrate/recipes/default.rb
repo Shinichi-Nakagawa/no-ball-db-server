@@ -8,33 +8,37 @@
 #
 include_recipe 'database::mysql'
 
-mysql_connection_info = {:host => "localhost",
-                         :username => 'root',
-                         :password => node['mysql']['server_root_password']}
+database_config = Chef::EncryptedDataBagItem.load('database_config', 'default')
+
+mysql_connection_info = {
+  :host => database_config['host'],
+  :username => database_config['users']['root']['name'],
+  :password => database_config['users']['root']['password']
+}
 
 
 # create database
-mysql_database node['database']['name'] do
+mysql_database database_config['name'] do
   connection mysql_connection_info
   action :create
 end
 
 
 # create & grant admin username
-mysql_database_user node['database']['user']['admin']['name'] do
+mysql_database_user database_config['users']['admin']['name'] do
   connection mysql_connection_info
-  password node['database']['user']['admin']['password']
-  database_name node['database']['name']
+  password database_config['users']['admin']['password']
+  database_name database_config['name']
   privileges [:all]
   action [:create, :grant]
 end
 
 
 # create & grant application user
-mysql_database_user node['database']['user']['app']['name'] do
+mysql_database_user database_config['users']['app']['name'] do
   connection mysql_connection_info
-  password node['database']['user']['app']['password']
-  database_name node['database']['name']
+  password database_config['users']['app']['password']
+  database_name database_config['name']
   privileges [:select, :update, :insert, :delete]
   host '%'  # TODO 開発用。本番ではHOSTを絞ろう
   action [:create, :grant]
@@ -46,7 +50,7 @@ for query in node['database']['sean_lahman']['sql'] do
     action :create_if_missing
   end
   execute query do
-    command "mysql -u#{node['database']['user']['admin']['name']} -D#{node['database']['name']} -p#{node['database']['user']['admin']['password']} < /tmp/#{query}"
+    command "mysql -u#{database_config['users']['admin']['name']} -D#{database_config['name']} -p#{database_config['users']['admin']['password']} < /tmp/#{query}"
   end
 
 end
@@ -54,6 +58,6 @@ end
 
 # generate SQLAlchemy model code
 execute node['database']['sean_lahman']['python'] do
-  command "sqlacodegen mysql://#{node['database']['user']['admin']['name']}:#{node['database']['user']['admin']['password']}@localhost:#{node['mysql']['port']}/#{node['database']['name']} --outfile /vagrant/#{node['database']['sean_lahman']['python']}"
+  command "sqlacodegen mysql://#{database_config['users']['admin']['name']}:#{database_config['users']['admin']['password']}@#{database_config['host']}:#{database_config['port']}/#{database_config['name']} --outfile /vagrant/#{node['database']['sean_lahman']['python']}"
 end
 

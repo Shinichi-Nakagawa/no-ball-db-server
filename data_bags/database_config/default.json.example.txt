@@ -1,0 +1,20 @@
+{
+  "id": "default",
+  "host": "localhost",
+  "port": "3306",
+  "name": "sean_lahman",
+  "users": {
+    "root": {
+      "name": "root",
+      "password": "ichiro_suzuki"
+    },
+    "admin": {
+      "name": "admin",
+      "password": "billy_beane"
+    },
+    "app": {
+      "name": "app",
+      "password": "adam_dunn"
+    }
+  }
+}

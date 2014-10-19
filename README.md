@@ -65,24 +65,48 @@ http://youtu.be/7NS1CwzlFS8?list=UUxNoKygeZIE1AwZ_NdUCkhQ
 
 http://qiita.com/ikuwow/items/c604f4bff87275f89543
 
+#### knife-solo_data_bag
+
 ## Usage
 
 サーバーを構築(後述のinstallを参照)後、MySQLにログインして使用します。
 
-ユーザーは以下のファイルをご参照ください。
+### ホストへの接続
 
-https://github.com/Shinichi-Nakagawa/no-ball-db-server/blob/master/site-cookbooks/migrate/attributes/default.rb
+Project rootにいる場合(=Vagrantfile)がある場所であれば、
+
+> vagrant ssh
+
+普通にsshで繋ぐ際は、
+
+> ssh vagrant@192.168.33.10
+
+または、
+
+> ssh db
+
+でログイン出来ます。
+
+ちなみに、ユーザー/パスワード共にvagrantです。
+
+### 接続文字列
+
+外部からの接続はappユーザーのみ許可しています。
+
+> mysql -h 192.168.33.10 -P 3306 -u app -D sean_lahman -p {appユーザーのPassword}
 
 ## install
 
-使い方の解説です。利用環境(OS)は以下の要件を想定しています。
+インストール手順です。利用環境(OS)は以下の要件を想定しています。
 
  * Mac OS X 10.9(Mavericks)
  * メモリ4GB以上を推奨 ※Serverイメージで2GB食います
 
 初回のServer立ち上げには時間を要します（おおよそ2時間程度）。
 
-仮置きで、クローンする先を以下のディレクトリとします。
+覚悟してください。
+
+ここから先の説明は仮置きで、Project Root(=クローンする先)を以下のディレクトリとします。
 
  * /Users/Billy_Beane/Documents/no-ball-db-server
 

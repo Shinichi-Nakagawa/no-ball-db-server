@@ -9,7 +9,7 @@ PARAMS = {
     'dialect': 'mysql',
     'driver': 'pymysql',
     'user': 'app',
-    'password': 'app_password',
+    'password': 'adam_dunn',
     'host': 'localhost',
     'port': '3306',
     'database': 'sean_lahman'
