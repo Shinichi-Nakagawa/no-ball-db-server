@@ -130,6 +130,53 @@ Lahman’s Baseball DatabaseのCSVデータ( http://seanlahman.com/files/databas
 
 > cd no-ball-db-server
 
+#### Data Bagsの準備
+
+参考： http://nmbr8.com/blog/2014/06/24/chef-solo-encrypted-data-bags/
+
+サーバーを構築する前に、Data Bagsの準備を行います。
+
+まず、opensslコマンドでData Bagsの鍵を作ります
+
+> openssl rand -base64 512 > ./.chef/data_bag_key
+
+次に、以下のコマンドでData Bagを作成してください。
+
+※エディターが立ち上がります、必要に応じてEDITOR環境変数を変更してください！
+
+> knife solo data bag edit database_config dafault --secret-file .chef/data_bag_key
+
+default.jsonの中身は以下の内容を記述してください。
+
+注意事項としては、
+
+* idは変更しちゃダメ
+* 項目の削除もダメ
+* usersは必ずroot,admin,appの3つにしてください。変更・削除はダメ	※パスワードは変更OK
+
+``` javascript
+{
+  "id": "default",
+  "host": "localhost",
+  "port": "3306",
+  "name": "sean_lahman",
+  "users": {
+    "root": {
+      "name": "root",
+      "password": "ichiro_suzuki"
+    },
+    "admin": {
+      "name": "admin",
+      "password": "billy_beane"
+    },
+    "app": {
+      "name": "app",
+      "password": "adam_dunn"
+    }
+  }
+}
+```
+
 #### Ubuntu Serverを立ち上げる
 
 > vagrant up
