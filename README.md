@@ -148,7 +148,7 @@ Lahman’s Baseball DatabaseのCSVデータ( http://seanlahman.com/files/databas
 
 ※エディターが立ち上がります、必要に応じてEDITOR環境変数を変更してください！
 
-> knife solo data bag edit database_config dafault --secret-file .chef/data_bag_key
+> knife solo data bag create database_config dafault --secret-file .chef/data_bag_key
 
 default.jsonの中身は以下の内容を記述してください。
 
