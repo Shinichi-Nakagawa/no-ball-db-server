@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, Float, Integer, String, text
+from sqlalchemy import Column, DateTime, Float, Integer, String, Table, text
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -10,9 +10,9 @@ metadata = Base.metadata
 class AllstarFull(Base):
     __tablename__ = u'AllstarFull'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    gameNum = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    gameNum = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     gameID = Column(String(12))
     teamID = Column(String(3))
     lgID = Column(String(2))
@@ -23,10 +23,10 @@ class AllstarFull(Base):
 class Appearance(Base):
     __tablename__ = u'Appearances'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
     lgID = Column(String(2))
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
     G_all = Column(Integer)
     GS = Column(Integer)
     G_batting = Column(Integer)
@@ -49,10 +49,10 @@ class Appearance(Base):
 class AwardsManager(Base):
     __tablename__ = u'AwardsManagers'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    awardID = Column(String(25), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
+    playerID = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
+    awardID = Column(String(75), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
     tie = Column(String(1))
     notes = Column(String(100))
 
@@ -60,10 +60,10 @@ class AwardsManager(Base):
 class AwardsPlayer(Base):
     __tablename__ = u'AwardsPlayers'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    awardID = Column(String(255), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    awardID = Column(String(255), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
     tie = Column(String(1))
     notes = Column(String(100))
 
@@ -71,10 +71,10 @@ class AwardsPlayer(Base):
 class AwardsShareManager(Base):
     __tablename__ = u'AwardsShareManagers'
 
-    awardID = Column(String(25), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    awardID = Column(String(25), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
+    playerID = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
     pointsWon = Column(Integer)
     pointsMax = Column(Integer)
     votesFirst = Column(Integer)
@@ -83,10 +83,10 @@ class AwardsShareManager(Base):
 class AwardsSharePlayer(Base):
     __tablename__ = u'AwardsSharePlayers'
 
-    awardID = Column(String(25), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    awardID = Column(String(25), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
     pointsWon = Column(Float(asdecimal=True))
     pointsMax = Column(Integer)
     votesFirst = Column(Float(asdecimal=True))
@@ -95,9 +95,9 @@ class AwardsSharePlayer(Base):
 class Batting(Base):
     __tablename__ = u'Batting'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     teamID = Column(String(3))
     lgID = Column(String(2))
     G = Column(Integer)
@@ -124,9 +124,9 @@ class Batting(Base):
 class BattingPost(Base):
     __tablename__ = u'BattingPost'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    round = Column(String(10), primary_key=True, nullable=False)
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    round = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
     teamID = Column(String(3))
     lgID = Column(String(2))
     G = Column(Integer)
@@ -151,9 +151,9 @@ class BattingPost(Base):
 class BattingTotal(Base):
     __tablename__ = u'BattingTotal'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     G = Column(Integer)
     G_batting = Column(Integer)
     AB = Column(Integer)
@@ -175,15 +175,23 @@ class BattingTotal(Base):
     G_old = Column(Integer)
 
 
+class CollegePlaying(Base): 
+    __tablename__ = u'CollegePlaying'
+
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    schoolID = Column(String(15), primary_key=True)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+
+
 class Fielding(Base):
     __tablename__ = u'Fielding'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     teamID = Column(String(3))
     lgID = Column(String(2))
-    POS = Column(String(2), primary_key=True, nullable=False)
+    POS = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
     G = Column(Integer)
     GS = Column(Integer)
     InnOuts = Column(Integer)
@@ -201,9 +209,9 @@ class Fielding(Base):
 class FieldingOF(Base):
     __tablename__ = u'FieldingOF'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     Glf = Column(Integer)
     Gcf = Column(Integer)
     Grf = Column(Integer)
@@ -212,12 +220,12 @@ class FieldingOF(Base):
 class FieldingPost(Base):
     __tablename__ = u'FieldingPost'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     teamID = Column(String(3))
     lgID = Column(String(2))
-    round = Column(String(10), primary_key=True, nullable=False)
-    POS = Column(String(2), primary_key=True, nullable=False)
+    round = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
+    POS = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
     G = Column(Integer)
     GS = Column(Integer)
     InnOuts = Column(Integer)
@@ -234,25 +242,25 @@ class FieldingPost(Base):
 class HallOfFame(Base):
     __tablename__ = u'HallOfFame'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearid = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
+    yearid = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     votedBy = Column(String(64), primary_key=True, nullable=False, server_default=text("''"))
     ballots = Column(Integer)
     needed = Column(Integer)
     votes = Column(Integer)
     inducted = Column(String(1))
     category = Column(String(20))
-    needed_note = Column(String(20))
+    needed_note = Column(String(25))
 
 
 class Manager(Base):
     __tablename__ = u'Managers'
 
-    playerID = Column(String(9))
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
+    playerID = Column(String(10))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
     lgID = Column(String(2))
-    inseason = Column(Integer, primary_key=True, nullable=False)
+    inseason = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     G = Column(Integer)
     W = Column(Integer)
     L = Column(Integer)
@@ -263,12 +271,12 @@ class Manager(Base):
 class ManagersHalf(Base):
     __tablename__ = u'ManagersHalf'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
+    playerID = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
     lgID = Column(String(2))
     inseason = Column(Integer)
-    half = Column(Integer, primary_key=True, nullable=False)
+    half = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     G = Column(Integer)
     W = Column(Integer)
     L = Column(Integer)
@@ -278,8 +286,7 @@ class ManagersHalf(Base):
 class Master(Base):
     __tablename__ = u'Master'
 
-    playerID = Column(String(9), primary_key=True, server_default=text("''"))
-    hofID = Column(String(10))
+    playerID = Column(String(10), primary_key=True)
     birthYear = Column(Integer)
     birthMonth = Column(Integer)
     birthDay = Column(Integer)
@@ -294,29 +301,23 @@ class Master(Base):
     deathCity = Column(String(50))
     nameFirst = Column(String(50))
     nameLast = Column(String(50))
-    nameNote = Column(String(255))
     nameGiven = Column(String(255))
-    nameNick = Column(String(255))
     weight = Column(Integer)
     height = Column(Float(asdecimal=True))
     bats = Column(String(1))
     throws = Column(String(1))
-    debut = Column(String(10))
-    finalGame = Column(String(10))
-    college = Column(String(50))
-    lahman40ID = Column(String(9))
-    lahman45ID = Column(String(9))
+    debut = Column(DateTime)
+    finalGame = Column(DateTime)
     retroID = Column(String(9))
-    holtzID = Column(String(9))
     bbrefID = Column(String(9))
 
 
 class Pitching(Base):
     __tablename__ = u'Pitching'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     teamID = Column(String(3))
     lgID = Column(String(2))
     W = Column(Integer)
@@ -349,9 +350,9 @@ class Pitching(Base):
 class PitchingPost(Base):
     __tablename__ = u'PitchingPost'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    round = Column(String(10), primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    round = Column(String(10), primary_key=True, nullable=False, server_default=text("''"))
     teamID = Column(String(3))
     lgID = Column(String(2))
     W = Column(Integer)
@@ -384,9 +385,9 @@ class PitchingPost(Base):
 class PitchingTotal(Base):
     __tablename__ = u'PitchingTotal'
 
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    stint = Column(Integer, primary_key=True, nullable=False)
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    stint = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
     W = Column(Integer)
     L = Column(Integer)
     G = Column(Integer)
@@ -415,18 +416,18 @@ class PitchingTotal(Base):
 class Salary(Base):
     __tablename__ = u'Salaries'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
     salary = Column(Float(asdecimal=True))
 
 
 class SalariesTotal(Base):
     __tablename__ = u'SalariesTotal'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    playerID = Column(String(9), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    playerID = Column(String(9), primary_key=True, nullable=False, server_default=text("''"))
     salary = Column(Float(asdecimal=True))
 
 
@@ -434,26 +435,17 @@ class School(Base):
     __tablename__ = u'Schools'
 
     schoolID = Column(String(15), primary_key=True)
-    schoolName = Column(String(255))
-    schoolCity = Column(String(55))
-    schoolState = Column(String(55))
-    schoolNick = Column(String(55))
-
-
-class SchoolsPlayer(Base):
-    __tablename__ = u'SchoolsPlayers'
-
-    playerID = Column(String(9), primary_key=True, nullable=False)
-    schoolID = Column(String(15), primary_key=True, nullable=False)
-    yearMin = Column(Integer)
-    yearMax = Column(Integer)
+    name_full = Column(String(255))
+    city = Column(String(55))
+    state = Column(String(55))
+    country = Column(String(55))
 
 
 class SeriesPost(Base):
     __tablename__ = u'SeriesPost'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    round = Column(String(5), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    round = Column(String(5), primary_key=True, nullable=False, server_default=text("''"))
     teamIDwinner = Column(String(3))
     lgIDwinner = Column(String(2))
     teamIDloser = Column(String(3))
@@ -466,9 +458,9 @@ class SeriesPost(Base):
 class Team(Base):
     __tablename__ = u'Teams'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
     franchID = Column(String(3))
     divID = Column(String(1))
     Rank = Column(Integer)
@@ -528,10 +520,10 @@ class TeamsFranchise(Base):
 class TeamsHalf(Base):
     __tablename__ = u'TeamsHalf'
 
-    yearID = Column(Integer, primary_key=True, nullable=False)
-    lgID = Column(String(2), primary_key=True, nullable=False)
-    teamID = Column(String(3), primary_key=True, nullable=False)
-    Half = Column(String(1), primary_key=True, nullable=False)
+    yearID = Column(Integer, primary_key=True, nullable=False, server_default=text("'0'"))
+    lgID = Column(String(2), primary_key=True, nullable=False, server_default=text("''"))
+    teamID = Column(String(3), primary_key=True, nullable=False, server_default=text("''"))
+    Half = Column(String(1), primary_key=True, nullable=False, server_default=text("''"))
     divID = Column(String(1))
     DivWin = Column(String(1))
     Rank = Column(Integer)

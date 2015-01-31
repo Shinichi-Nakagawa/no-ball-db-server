@@ -54,10 +54,3 @@ for query in node['database']['sean_lahman']['sql'] do
   end
 
 end
-
-
-# generate SQLAlchemy model code
-execute node['database']['sean_lahman']['python'] do
-  command "sqlacodegen mysql://#{database_config['users']['admin']['name']}:#{database_config['users']['admin']['password']}@#{database_config['host']}:#{database_config['port']}/#{database_config['name']} --outfile /vagrant/#{node['database']['sean_lahman']['python']}"
-end
-

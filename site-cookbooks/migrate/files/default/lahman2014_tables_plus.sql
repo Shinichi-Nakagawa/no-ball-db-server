@@ -9,8 +9,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `BattingTotal` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
   `G` int(11) DEFAULT NULL,
   `G_batting` int(11) DEFAULT NULL,
   `AB` int(11) DEFAULT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `BattingTotal` (
 --
 
 CREATE TABLE IF NOT EXISTS `PitchingTotal` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
   `W` int(11) DEFAULT NULL,
   `L` int(11) DEFAULT NULL,
   `G` int(11) DEFAULT NULL,
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS `PitchingTotal` (
 --
 
 CREATE TABLE IF NOT EXISTS `SalariesTotal` (
-  `yearID` int(11) NOT NULL,
-  `playerID` varchar(9) NOT NULL,
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `playerID` varchar(9) NOT NULL DEFAULT '',
   `salary` double DEFAULT NULL,
   PRIMARY KEY (`yearID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
