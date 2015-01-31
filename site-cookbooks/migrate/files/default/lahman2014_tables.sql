@@ -1,30 +1,34 @@
--- phpMyAdmin SQL Dump
--- version 3.3.10.4
--- http://www.phpmyadmin.net
---
--- Host: mysql.baseballarchive.org
--- Generation Time: Dec 06, 2013 at 08:14 PM
--- Server version: 5.1.56
--- PHP Version: 5.3.27
+# ************************************************************
+# Sequel Pro SQL dump
+# バージョン 4096
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# ホスト: 127.0.0.1 (MySQL 5.5.41-0ubuntu0.14.04.1)
+# データベース: sean_lahman
+# 作成時刻: 2015-01-31 09:48:48 +0000
+# ************************************************************
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
---
--- Database: `lahman_bbdb`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `AllstarFull`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
+# テーブルのダンプ AllstarFull
+# ------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `AllstarFull` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `gameNum` int(11) NOT NULL,
+DROP TABLE IF EXISTS `AllstarFull`;
+
+CREATE TABLE `AllstarFull` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `gameNum` int(11) NOT NULL DEFAULT '0',
   `gameID` varchar(12) DEFAULT NULL,
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
@@ -33,19 +37,18 @@ CREATE TABLE IF NOT EXISTS `AllstarFull` (
   PRIMARY KEY (`playerID`,`yearID`,`gameNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Appearances`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Appearances` (
-  `yearID` int(11) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
+# テーブルのダンプ Appearances
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Appearances`;
+
+CREATE TABLE `Appearances` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
   `lgID` varchar(2) DEFAULT NULL,
-  `playerID` varchar(9) NOT NULL,
+  `playerID` varchar(9) NOT NULL DEFAULT '',
   `G_all` int(11) DEFAULT NULL,
   `GS` int(11) DEFAULT NULL,
   `G_batting` int(11) DEFAULT NULL,
@@ -66,92 +69,87 @@ CREATE TABLE IF NOT EXISTS `Appearances` (
   PRIMARY KEY (`yearID`,`teamID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `AwardsManagers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `AwardsManagers` (
-  `playerID` varchar(9) NOT NULL,
-  `awardID` varchar(25) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
+# テーブルのダンプ AwardsManagers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AwardsManagers`;
+
+CREATE TABLE `AwardsManagers` (
+  `playerID` varchar(10) NOT NULL DEFAULT '',
+  `awardID` varchar(75) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
   `tie` varchar(1) DEFAULT NULL,
   `notes` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`yearID`,`awardID`,`lgID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `AwardsPlayers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `AwardsPlayers` (
-  `playerID` varchar(9) NOT NULL,
-  `awardID` varchar(255) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
+# テーブルのダンプ AwardsPlayers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AwardsPlayers`;
+
+CREATE TABLE `AwardsPlayers` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `awardID` varchar(255) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
   `tie` varchar(1) DEFAULT NULL,
   `notes` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`yearID`,`awardID`,`lgID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `AwardsShareManagers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `AwardsShareManagers` (
-  `awardID` varchar(25) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
-  `playerID` varchar(9) NOT NULL,
+# テーブルのダンプ AwardsShareManagers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AwardsShareManagers`;
+
+CREATE TABLE `AwardsShareManagers` (
+  `awardID` varchar(25) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
+  `playerID` varchar(10) NOT NULL DEFAULT '',
   `pointsWon` int(11) DEFAULT NULL,
   `pointsMax` int(11) DEFAULT NULL,
   `votesFirst` int(11) DEFAULT NULL,
   PRIMARY KEY (`awardID`,`yearID`,`lgID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `AwardsSharePlayers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `AwardsSharePlayers` (
-  `awardID` varchar(25) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
-  `playerID` varchar(9) NOT NULL,
+# テーブルのダンプ AwardsSharePlayers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AwardsSharePlayers`;
+
+CREATE TABLE `AwardsSharePlayers` (
+  `awardID` varchar(25) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
+  `playerID` varchar(9) NOT NULL DEFAULT '',
   `pointsWon` double DEFAULT NULL,
   `pointsMax` int(11) DEFAULT NULL,
   `votesFirst` double DEFAULT NULL,
   PRIMARY KEY (`awardID`,`yearID`,`lgID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Batting`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Batting` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `stint` int(11) NOT NULL,
+# テーブルのダンプ Batting
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Batting`;
+
+CREATE TABLE `Batting` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `stint` int(11) NOT NULL DEFAULT '0',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `G` int(11) DEFAULT NULL,
@@ -176,18 +174,17 @@ CREATE TABLE IF NOT EXISTS `Batting` (
   PRIMARY KEY (`playerID`,`yearID`,`stint`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `BattingPost`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `BattingPost` (
-  `yearID` int(11) NOT NULL,
-  `round` varchar(10) NOT NULL,
-  `playerID` varchar(9) NOT NULL,
+# テーブルのダンプ BattingPost
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `BattingPost`;
+
+CREATE TABLE `BattingPost` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `round` varchar(10) NOT NULL DEFAULT '',
+  `playerID` varchar(9) NOT NULL DEFAULT '',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `G` int(11) DEFAULT NULL,
@@ -210,21 +207,34 @@ CREATE TABLE IF NOT EXISTS `BattingPost` (
   PRIMARY KEY (`yearID`,`round`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Fielding`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Fielding` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `stint` int(11) NOT NULL,
+# テーブルのダンプ CollegePlaying
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `CollegePlaying`;
+
+CREATE TABLE `CollegePlaying` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `schoolID` varchar(15) NOT NULL,
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`playerID`,`schoolID`,`yearID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# テーブルのダンプ Fielding
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Fielding`;
+
+CREATE TABLE `Fielding` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `stint` int(11) NOT NULL DEFAULT '0',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
-  `POS` varchar(2) NOT NULL,
+  `POS` varchar(2) NOT NULL DEFAULT '',
   `G` int(11) DEFAULT NULL,
   `GS` int(11) DEFAULT NULL,
   `InnOuts` int(11) DEFAULT NULL,
@@ -240,39 +250,37 @@ CREATE TABLE IF NOT EXISTS `Fielding` (
   PRIMARY KEY (`playerID`,`yearID`,`stint`,`POS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `FieldingOF`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `FieldingOF` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `stint` int(11) NOT NULL,
+# テーブルのダンプ FieldingOF
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `FieldingOF`;
+
+CREATE TABLE `FieldingOF` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `stint` int(11) NOT NULL DEFAULT '0',
   `Glf` int(11) DEFAULT NULL,
   `Gcf` int(11) DEFAULT NULL,
   `Grf` int(11) DEFAULT NULL,
   PRIMARY KEY (`playerID`,`yearID`,`stint`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `FieldingPost`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `FieldingPost` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
+# テーブルのダンプ FieldingPost
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `FieldingPost`;
+
+CREATE TABLE `FieldingPost` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
-  `round` varchar(10) NOT NULL,
-  `POS` varchar(2) NOT NULL,
+  `round` varchar(10) NOT NULL DEFAULT '',
+  `POS` varchar(2) NOT NULL DEFAULT '',
   `G` int(11) DEFAULT NULL,
   `GS` int(11) DEFAULT NULL,
   `InnOuts` int(11) DEFAULT NULL,
@@ -287,41 +295,39 @@ CREATE TABLE IF NOT EXISTS `FieldingPost` (
   PRIMARY KEY (`playerID`,`yearID`,`round`,`POS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `HallOfFame`
---
--- Creation: Dec 06, 2013 at 10:48 AM
---
 
-CREATE TABLE IF NOT EXISTS `HallOfFame` (
-  `playerID` varchar(9) NOT NULL,
-  `yearid` int(11) NOT NULL,
+# テーブルのダンプ HallOfFame
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `HallOfFame`;
+
+CREATE TABLE `HallOfFame` (
+  `playerID` varchar(10) NOT NULL DEFAULT '',
+  `yearid` int(11) NOT NULL DEFAULT '0',
   `votedBy` varchar(64) NOT NULL DEFAULT '',
   `ballots` int(11) DEFAULT NULL,
   `needed` int(11) DEFAULT NULL,
   `votes` int(11) DEFAULT NULL,
   `inducted` varchar(1) DEFAULT NULL,
   `category` varchar(20) DEFAULT NULL,
-  `needed_note` varchar(20) DEFAULT NULL,
+  `needed_note` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`playerID`,`yearid`,`votedBy`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Managers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Managers` (
-  `playerID` varchar(9) DEFAULT NULL,
-  `yearID` int(11) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
+# テーブルのダンプ Managers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Managers`;
+
+CREATE TABLE `Managers` (
+  `playerID` varchar(10) DEFAULT NULL,
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
   `lgID` varchar(2) DEFAULT NULL,
-  `inseason` int(11) NOT NULL,
+  `inseason` int(11) NOT NULL DEFAULT '0',
   `G` int(11) DEFAULT NULL,
   `W` int(11) DEFAULT NULL,
   `L` int(11) DEFAULT NULL,
@@ -330,21 +336,20 @@ CREATE TABLE IF NOT EXISTS `Managers` (
   PRIMARY KEY (`yearID`,`teamID`,`inseason`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `ManagersHalf`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `ManagersHalf` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
+# テーブルのダンプ ManagersHalf
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ManagersHalf`;
+
+CREATE TABLE `ManagersHalf` (
+  `playerID` varchar(10) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
   `lgID` varchar(2) DEFAULT NULL,
   `inseason` int(11) DEFAULT NULL,
-  `half` int(11) NOT NULL,
+  `half` int(11) NOT NULL DEFAULT '0',
   `G` int(11) DEFAULT NULL,
   `W` int(11) DEFAULT NULL,
   `L` int(11) DEFAULT NULL,
@@ -352,17 +357,15 @@ CREATE TABLE IF NOT EXISTS `ManagersHalf` (
   PRIMARY KEY (`yearID`,`teamID`,`playerID`,`half`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Master`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Master` (
-  `playerID` varchar(9) DEFAULT NULL,
-  `hofID` varchar(10) DEFAULT NULL,
+# テーブルのダンプ Master
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Master`;
+
+CREATE TABLE `Master` (
+  `playerID` varchar(10) NOT NULL,
   `birthYear` int(11) DEFAULT NULL,
   `birthMonth` int(11) DEFAULT NULL,
   `birthDay` int(11) DEFAULT NULL,
@@ -377,36 +380,29 @@ CREATE TABLE IF NOT EXISTS `Master` (
   `deathCity` varchar(50) DEFAULT NULL,
   `nameFirst` varchar(50) DEFAULT NULL,
   `nameLast` varchar(50) DEFAULT NULL,
-  `nameNote` varchar(255) DEFAULT NULL,
   `nameGiven` varchar(255) DEFAULT NULL,
-  `nameNick` varchar(255) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
   `height` double DEFAULT NULL,
   `bats` varchar(1) DEFAULT NULL,
   `throws` varchar(1) DEFAULT NULL,
-  `debut` varchar(10) DEFAULT NULL,
-  `finalGame` varchar(10) DEFAULT NULL,
-  `college` varchar(50) DEFAULT NULL,
-  `lahman40ID` varchar(9) DEFAULT NULL,
-  `lahman45ID` varchar(9) DEFAULT NULL,
+  `debut` datetime DEFAULT NULL,
+  `finalGame` datetime DEFAULT NULL,
   `retroID` varchar(9) DEFAULT NULL,
-  `holtzID` varchar(9) DEFAULT NULL,
   `bbrefID` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Pitching`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Pitching` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `stint` int(11) NOT NULL,
+# テーブルのダンプ Pitching
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Pitching`;
+
+CREATE TABLE `Pitching` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `stint` int(11) NOT NULL DEFAULT '0',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `W` int(11) DEFAULT NULL,
@@ -437,18 +433,17 @@ CREATE TABLE IF NOT EXISTS `Pitching` (
   PRIMARY KEY (`playerID`,`yearID`,`stint`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `PitchingPost`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `PitchingPost` (
-  `playerID` varchar(9) NOT NULL,
-  `yearID` int(11) NOT NULL,
-  `round` varchar(10) NOT NULL,
+# テーブルのダンプ PitchingPost
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `PitchingPost`;
+
+CREATE TABLE `PitchingPost` (
+  `playerID` varchar(9) NOT NULL DEFAULT '',
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `round` varchar(10) NOT NULL DEFAULT '',
   `teamID` varchar(3) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `W` int(11) DEFAULT NULL,
@@ -479,67 +474,48 @@ CREATE TABLE IF NOT EXISTS `PitchingPost` (
   PRIMARY KEY (`playerID`,`yearID`,`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Salaries`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Salaries` (
-  `yearID` int(11) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
-  `playerID` varchar(9) NOT NULL,
+# テーブルのダンプ Salaries
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Salaries`;
+
+CREATE TABLE `Salaries` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
+  `playerID` varchar(9) NOT NULL DEFAULT '',
   `salary` double DEFAULT NULL,
   PRIMARY KEY (`yearID`,`teamID`,`lgID`,`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Schools`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Schools` (
+# テーブルのダンプ Schools
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Schools`;
+
+CREATE TABLE `Schools` (
   `schoolID` varchar(15) NOT NULL,
-  `schoolName` varchar(255) DEFAULT NULL,
-  `schoolCity` varchar(55) DEFAULT NULL,
-  `schoolState` varchar(55) DEFAULT NULL,
-  `schoolNick` varchar(55) DEFAULT NULL,
+  `name_full` varchar(255) DEFAULT NULL,
+  `city` varchar(55) DEFAULT NULL,
+  `state` varchar(55) DEFAULT NULL,
+  `country` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`schoolID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `SchoolsPlayers`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `SchoolsPlayers` (
-  `playerID` varchar(9) NOT NULL,
-  `schoolID` varchar(15) NOT NULL,
-  `yearMin` int(11) DEFAULT NULL,
-  `yearMax` int(11) DEFAULT NULL,
-  PRIMARY KEY (`playerID`,`schoolID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# テーブルのダンプ SeriesPost
+# ------------------------------------------------------------
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `SeriesPost`;
 
---
--- Table structure for table `SeriesPost`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
-
-CREATE TABLE IF NOT EXISTS `SeriesPost` (
-  `yearID` int(11) NOT NULL,
-  `round` varchar(5) NOT NULL,
+CREATE TABLE `SeriesPost` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `round` varchar(5) NOT NULL DEFAULT '',
   `teamIDwinner` varchar(3) DEFAULT NULL,
   `lgIDwinner` varchar(2) DEFAULT NULL,
   `teamIDloser` varchar(3) DEFAULT NULL,
@@ -550,18 +526,17 @@ CREATE TABLE IF NOT EXISTS `SeriesPost` (
   PRIMARY KEY (`yearID`,`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Teams`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `Teams` (
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
+# テーブルのダンプ Teams
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Teams`;
+
+CREATE TABLE `Teams` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
   `franchID` varchar(3) DEFAULT NULL,
   `divID` varchar(1) DEFAULT NULL,
   `Rank` int(11) DEFAULT NULL,
@@ -610,15 +585,14 @@ CREATE TABLE IF NOT EXISTS `Teams` (
   PRIMARY KEY (`yearID`,`lgID`,`teamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `TeamsFranchises`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `TeamsFranchises` (
+# テーブルのダンプ TeamsFranchises
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `TeamsFranchises`;
+
+CREATE TABLE `TeamsFranchises` (
   `franchID` varchar(3) NOT NULL,
   `franchName` varchar(50) DEFAULT NULL,
   `active` varchar(2) DEFAULT NULL,
@@ -626,19 +600,18 @@ CREATE TABLE IF NOT EXISTS `TeamsFranchises` (
   PRIMARY KEY (`franchID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `TeamsHalf`
---
--- Creation: Dec 06, 2013 at 06:43 AM
---
 
-CREATE TABLE IF NOT EXISTS `TeamsHalf` (
-  `yearID` int(11) NOT NULL,
-  `lgID` varchar(2) NOT NULL,
-  `teamID` varchar(3) NOT NULL,
-  `Half` varchar(1) NOT NULL,
+# テーブルのダンプ TeamsHalf
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `TeamsHalf`;
+
+CREATE TABLE `TeamsHalf` (
+  `yearID` int(11) NOT NULL DEFAULT '0',
+  `lgID` varchar(2) NOT NULL DEFAULT '',
+  `teamID` varchar(3) NOT NULL DEFAULT '',
+  `Half` varchar(1) NOT NULL DEFAULT '',
   `divID` varchar(1) DEFAULT NULL,
   `DivWin` varchar(1) DEFAULT NULL,
   `Rank` int(11) DEFAULT NULL,
@@ -647,3 +620,13 @@ CREATE TABLE IF NOT EXISTS `TeamsHalf` (
   `L` int(11) DEFAULT NULL,
   PRIMARY KEY (`yearID`,`teamID`,`lgID`,`Half`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
