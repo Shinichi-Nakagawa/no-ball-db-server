@@ -18,7 +18,6 @@ class GenerateStatsData(object):
     # 集計対象の項目
     KEYS_BATTING = [
         'G',
-        'G_batting',
         'AB',
         'R',
         'H',
@@ -35,7 +34,6 @@ class GenerateStatsData(object):
         'SH',
         'SF',
         'GIDP',
-        'G_old'
     ]
     KEYS_PITCHING = [
         'W',
